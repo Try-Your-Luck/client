@@ -1,8 +1,13 @@
 <template>
-	<transition name="fade" mode="out-in">
-    <router-view />
-	</transition>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
+
+<script>
+export default {
+}
+</script>
 
 <style>
 #app {
@@ -13,9 +18,6 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
 
 #nav a {
   font-weight: bold;
