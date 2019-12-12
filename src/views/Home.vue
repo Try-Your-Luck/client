@@ -1,18 +1,43 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div class="jumbotron">
+		<div class="d-flex justify-content-center">
+		  <img src="@/assets/try-your-luck-logo.png">
+		</div>
+		<div class="container pt-5" style="text-align: center">
+			<form class="form-signin" @submit.prevent="register">
+				<div class="form-group">
+				  <input type="text" class="form-control" placeholder="Who are you?" v-model="username">
+				</div>
+				<div class="form-group">
+				  <input type="submit" class="btn btn-dark" value="Register">	
+				  <hr>
+				</div>
+			</form>	
+		</div>			
+	</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
-  components: {
-    HelloWorld
-  }
+	data: function () {
+		return {
+			username: ''
+		}
+	},
+	methods: {
+		register () {
+			localStorage.setItem('username', this.username)
+			this.$router.push({ name: 'dummy' })
+		}
+	}
 }
 </script>
+
+<style scoped>
+.form-signin {
+	width: 50%;
+	padding: 15px;
+	margin: auto;
+}
+</style>
