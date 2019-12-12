@@ -1,8 +1,13 @@
 <template>
-	<transition name="fade" mode="out-in">
-    <router-view />
-	</transition>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
+
+<script>
+export default {
+}
+</script>
 
 <style>
 #app {
