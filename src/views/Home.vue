@@ -27,7 +27,8 @@ export default {
 	},
 	methods: {
 		register () {
-			localStorage.setItem('username', this.username)
+			// localStorage.setItem('username', this.username)
+			this.$store.commit('updateUsername', { username: this.username })
 			this.$router.push({ name: 'dummy' })
 		}
 	}
