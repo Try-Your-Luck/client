@@ -29,7 +29,7 @@ export default {
 		register () {
 			// localStorage.setItem('username', this.username)
 			this.$store.commit('updateUsername', { username: this.username })
-			this.$router.push({ name: 'dummy' })
+			this.$router.push({ name: 'lobby' })
 		}
 	}
 }
