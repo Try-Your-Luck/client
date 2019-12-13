@@ -52,7 +52,11 @@ export default {
   methods: {
     createRoom () {
       this.$store.dispatch('createRoom', this.roomName)
-      this.show = false
+        .then(()=> {
+          this.show = false
+          this.roomName = ''
+          this.$router.push({ name: 'waitingLobby' })
+        })
     }
   }
 }
