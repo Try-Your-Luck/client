@@ -54,12 +54,13 @@ export default new Vuex.Store({
       return db.collection('rooms').add({
         name: payload,
         players: [{ 
-          username: context.state.username,
+          username: localStorage.getItem('userLogin'),
           status: 'waiting',
           balance: 25
         }]
       }).then(ref => {
           context.commit('setCurrentRoom', ref.id)
+          localStorage.setItem('currentRoom', payload)
         })
     },
     fetchPlayers (context) {
@@ -70,6 +71,7 @@ export default new Vuex.Store({
     },
     enterRoom (context, payload) {
       context.commit('setCurrentRoom', payload)
+      localStorage.setItem('currentRoom', payload)
       db.collection('rooms').doc(payload).update({
         players: firebase.firestore.FieldValue.arrayUnion({
           username: localStorage.getItem('userLogin'),
@@ -78,7 +80,22 @@ export default new Vuex.Store({
         })
       })
         
-    }
+    },
+    updateStatus (context) {
+      let datum = db.collection('rooms').doc(localStorage.getItem('currentRoom')).get() 
+        .then(function(result) {
+          let target = result.data().players
+          target.forEach(function(player, index) {
+            if (player.username === localStorage.getItem('userLogin')) {
+              player.status = 'ready'
+            }
+          })
+          db.collection('rooms').doc(localStorage.getItem('currentRoom'))
+            .update({
+              players: target
+            })
+        })
+    }    
   },
   computed: {
     getUser() {
