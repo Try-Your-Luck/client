@@ -49,7 +49,7 @@ export default {
     left: 0;
     bottom: 0;
     right: 0;
-    background: url("https://silversea-h.assetsadobe2.com/is/image/content/dam/silversea-com/ships/silver-muse/public-areas/casino/silversea-ship-silver-muse-public-area-casino-2.jpg?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80") no-repeat;
+    background: url("https://images.unsplash.com/photo-1553481187-be93c21490a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80") no-repeat;
     background-position: center ;
     background-size: cover;
   }

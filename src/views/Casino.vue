@@ -6,9 +6,6 @@
     <div class="row">
       <UserCard :playerData="player" v-for="(player, i) in listPlayers" :key="i"></UserCard>
     </div>
-    <div class="row mt-5">
-      <b-button v-if="listPlayers.length >= 2" @click.prevent="pindah" size="lg" variant="warning">Start Game</b-button>
-    </div>
   </div>
 </template>
 
@@ -18,33 +15,21 @@ import { mapState } from 'vuex'
 // import BackgroundMusic from '../components/BackgroundMusic'
 
 export default {
-  name: 'WaitingLobby',
+  name: 'Casino',
   components: {
     UserCard
     // BackgroundMusic
   },
-  computed: {
-    ...mapState(['listPlayers', 'udah']),
-    cekk () {
-      if (this.udah === 'ready') {
-        this.$router.push('casino')
-      }
-    }
-  },
+  computed: mapState(['listPlayers']),
   created () {
     this.$store.dispatch('fetchPlayers')
-  },
-  methods: {
-    pindah() {
-      this.$store.dispatch('mulai')
-    }
   }
 }
 </script>
 
 <style scoped>
 .game-lobby {
-  background-image: url("https://images.squarespace-cdn.com/content/589135c903596e466b814f4c/1520907223472-YAKUGIB3ELBUS4MK90R9/poker_tournament_landscape_tv_full_hd.jpg?content-type=image%2Fjpeg");
+  background-image: url("https://silversea-h.assetsadobe2.com/is/image/content/dam/silversea-com/ships/silver-muse/public-areas/casino/silversea-ship-silver-muse-public-area-casino-2.jpg?hei=930&wid=930&fit=constrain&fmt=pjpeg&pscan=5&qlt=80");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
