@@ -1,6 +1,6 @@
 <template>
-  <div class="col-lg-3">
-    <b-card :class='{"light" : (!this.isGreen), "success" : (this.isGreen)}' text-variant="black" header="USERNAME" class="text-center">
+  <div>
+    <b-card :class='{"light" : (!this.isGreen), "success" : (this.isGreen)}' text-variant="black" :header="playerData.username" class="text-center">
       <b-button @click.prevent="ready" variant="primary">Ready</b-button>
     </b-card>
   </div>
@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'UserCard',
-  props: ['User'],
+  props: ['playerData'],
   data () {
     return {
       isGreen: false
@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .light {
   background-color: white !important;
 }

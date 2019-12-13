@@ -19,8 +19,8 @@ export default {
   props: ['roomDetail'],
   methods: {
     enterRoom () {
-      // add player to room
-      this.$router.push('waitingRoom')
+      this.$store.dispatch('enterRoom', this.roomDetail.id)
+      this.$router.push('waitingLobby')
     }
   }
 }

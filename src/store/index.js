@@ -20,7 +20,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     username: '',
-    rooms: []
+    rooms: [],
+    currentRoom: '',
+    listPlayers: []
   },
   mutations: {
 		updateUsername (state, payload) {
@@ -28,6 +30,12 @@ export default new Vuex.Store({
     },
     saveRooms (state, roomList) {
       state.rooms = roomList
+    },
+    setCurrentRoom (state, payload) {
+      state.currentRoom = payload
+    },
+    setListPlayers (state, payload) {
+      state.listPlayers = payload
     }
   },
   actions: {
@@ -42,14 +50,32 @@ export default new Vuex.Store({
       })
     },
     createRoom (context, payload) {
-      db.collection('rooms').doc().set({
+      return db.collection('rooms').add({
         name: payload,
         players: [{ 
           username: context.state.username,
           status: 'waiting',
           balance: 25
         }]
+      }).then(ref => {
+          context.commit('setCurrentRoom', ref.id)
+        })
+    },
+    fetchPlayers (context) {
+      db.collection('rooms').doc(context.state.currentRoom)
+        .onSnapshot(function (querySnapshot) {
+          context.commit('setListPlayers', querySnapshot.data().players)
+        })
+    },
+    enterRoom (context, payload) {
+      context.commit('setCurrentRoom', payload)
+      let temp = context.state.listPlayers
+      temp.push({
+        username: context.state.username,
+        balance: 25,
+        status: 'waiting'
       })
+      db.collection('rooms').doc(payload).update({ players: temp })
     }
   },
   modules: {

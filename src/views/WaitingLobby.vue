@@ -4,7 +4,7 @@
       <source src="../assets/waiting-lobby.mp3" type="audio/mpeg" />
     </audio>
     <div class="row">
-      <UserCard></UserCard>
+      <UserCard :playerData="player" v-for="(player, i) in listPlayers" :key="i"></UserCard>
     </div>
     <div class="row mt-5">
       <b-button size="lg" variant="warning">Start Game</b-button>
@@ -14,6 +14,7 @@
 
 <script>
 import UserCard from '../components/UserCard'
+import { mapState } from 'vuex'
 // import BackgroundMusic from '../components/BackgroundMusic'
 
 export default {
@@ -21,6 +22,10 @@ export default {
   components: {
     UserCard
     // BackgroundMusic
+  },
+  computed: mapState(['listPlayers']),
+  created () {
+    this.$store.dispatch('fetchPlayers')
   }
 }
 </script>
