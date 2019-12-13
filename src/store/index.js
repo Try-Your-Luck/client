@@ -23,7 +23,8 @@ export default new Vuex.Store({
     username: '',
     rooms: [],
     currentRoom: '',
-    listPlayers: []
+    listPlayers: [],
+    udah: ''
   },
   mutations: {
 		updateUsername (state, payload) {
@@ -57,7 +58,8 @@ export default new Vuex.Store({
           username: localStorage.getItem('userLogin'),
           status: 'waiting',
           balance: 25
-        }]
+        }],
+        status: 'waiting'
       }).then(ref => {
           context.commit('setCurrentRoom', ref.id)
           localStorage.setItem('currentRoom', payload)
@@ -95,7 +97,21 @@ export default new Vuex.Store({
               players: target
             })
         })
-    }    
+    },
+    mulai (context) {
+      db.collection('rooms').doc(localStorage.getItem('currentRoom'))
+        .update({
+          status: 'ready'
+        })
+    },
+    cekStatusRum (context) {
+      db.collection('rooms').doc(localStorage.getItem('currentRoom'))
+        .onSnapshot(function(qSnap) {
+          if (qSnap.status === 'ready') {
+            context.state.udah = 'ready'
+          }
+        })
+    }
   },
   computed: {
     getUser() {
