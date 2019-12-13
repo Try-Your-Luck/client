@@ -78,6 +78,11 @@ export default new Vuex.Store({
       db.collection('rooms').doc(payload).update({ players: temp })
     }
   },
+  computed: {
+    getUser() {
+      state.username = localStorage.getItem('userLogin')
+    }
+  },
   modules: {
   }
 })
