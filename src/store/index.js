@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
 import 'firebase/firestore'
+import router from '../router/index.js'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD4ywLKtUP9kv6ioWqFZZrWPCWCIiU2y7w',
@@ -69,13 +70,19 @@ export default new Vuex.Store({
     },
     enterRoom (context, payload) {
       context.commit('setCurrentRoom', payload)
-      let temp = context.state.listPlayers
-      temp.push({
-        username: context.state.username,
-        balance: 25,
-        status: 'waiting'
+      db.collection('rooms').doc(payload).update({
+        players: firebase.firestore.FieldValue.arrayUnion({
+          username: localStorage.getItem('userLogin'),
+          balance: 25,
+          status: 'waiting'
+        })
       })
-      db.collection('rooms').doc(payload).update({ players: temp })
+        
+    }
+  },
+  computed: {
+    getUser() {
+      state.username = localStorage.getItem('userLogin')
     }
   },
   modules: {
