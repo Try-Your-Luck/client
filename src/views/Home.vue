@@ -1,5 +1,8 @@
 <template>
   <div class="jumbotron">
+		<audio autoplay>
+      <source src="../assets/username-lobby.mp3" type="audio/mpeg" />
+    </audio>
 		<div class="d-flex justify-content-center">
 		  <img src="@/assets/try-your-luck-logo.png">
 		</div>

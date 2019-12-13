@@ -1,5 +1,8 @@
 <template>
 <div class="jumbotron p-0">
+  <audio autoplay>
+    <source src="../assets/room-list-lobby.mp3" type="audio/mpeg" />
+  </audio>
   <b-container
     class="justify-content-center text-center my-0 p-2">
     <h1 style="color: white">LOBBY</h1>
