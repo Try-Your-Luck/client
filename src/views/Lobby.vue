@@ -3,9 +3,9 @@
   <b-container
     class="justify-content-center text-center my-0 p-2">
     <h1 style="color: white">LOBBY</h1>
-    <b-button class="my-4" variant="primary" @click.prevent="createRoom">Create Room</b-button>
+    <ModalRoom></ModalRoom>
       <b-row class="mx-auto big-box" style="width: 75%; height: 60vh">
-          <RoomCard class="my-4" v-for="(room, index) in rooms" :key="index" :idx="index"></RoomCard>
+          <RoomCard class="my-4" v-for="room in rooms" :key="room.id" :roomDetail="room"></RoomCard>
       </b-row> <!-- row.// -->
   </b-container>
 </div>
@@ -13,20 +13,27 @@
 
 <script>
 import RoomCard from '../components/RoomCard'
+import { mapState } from 'vuex'
+import ModalRoom from '../components/ModalRoom'
 export default {
   name: 'Lobby',
   data () {
     return {
-      rooms: ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j']
     }
   },
   components: {
-    RoomCard
+    RoomCard,
+    ModalRoom
   },
   methods: {
-    createRoom () {
-      // createRoom
-    }
+    
+  },
+  computed: mapState(['rooms']),
+  created () {
+    this.$store.dispatch('getRooms')
+  },
+  watch: {
+
   }
 }
 </script>
