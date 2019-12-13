@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card :class='{"light" : (!this.isGreen), "success" : (this.isGreen)}' text-variant="black" :header="playerData.username" class="text-center">
-      <b-button @click.prevent="ready" variant="primary">Ready</b-button>
+      <b-button v-if="jeneng === playerData.username" @click.prevent="ready" variant="primary">Ready</b-button>
     </b-card>
   </div>
 </template>
@@ -12,12 +12,18 @@ export default {
   props: ['playerData'],
   data () {
     return {
-      isGreen: false
+      isGreen: false,
+      waiting: true,
+      jeneng: localStorage.getItem('userLogin')
+
     }
   },
   methods: {
     ready () {
       this.isGreen = true
+      this.$store.dispatch('updateStatus')
+      this.waiting = false
+      
     }
   }
 
