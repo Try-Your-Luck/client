@@ -19,7 +19,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-		username: ''
+    username: '',
+    rooms: []
   },
   mutations: {
 		updateUsername (state, payload) {
@@ -31,12 +32,23 @@ export default new Vuex.Store({
   },
   actions: {
     getRooms: (context) => {
-      const rooms = []
-      db.collection('rooms').get().then(function (querySnapshot) {
+      db.collection('rooms')
+      .onSnapshot(function (querySnapshot) {
+        let rooms = []
         querySnapshot.forEach(function (doc) {
           rooms.push({ id: doc.id, ...doc.data() })
         })
         context.commit('saveRooms', rooms)
+      })
+    },
+    createRoom (context, payload) {
+      db.collection('rooms').doc().set({
+        name: payload,
+        players: [{ 
+          username: context.state.username,
+          status: 'waiting',
+          balance: 25
+        }]
       })
     }
   },

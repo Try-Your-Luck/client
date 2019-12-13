@@ -4,9 +4,9 @@
       class="card"
     >
     <b-card-text>
-      Room: {{ idx + 1 }}
+      {{ roomDetail.name }}
       <br>
-      Current player: 4
+      Current player: {{ roomDetail.players.length }}
     </b-card-text>
       <b-button variant="primary" @click.prevent="enterRoom">Join Room</b-button>
     </b-card> <!-- card // -->
@@ -16,7 +16,7 @@
 <script>
 export default {
   name: 'RoomCard',
-  props: ['idx'],
+  props: ['roomDetail'],
   methods: {
     enterRoom () {
       // add player to room
